@@ -1,6 +1,8 @@
 console.log('imagejs loaded');
 // prepare canvas
 //jmat.gId('cvBase').style.border='solid 1px';
+//<script src="http://localhost:8888/jmat/jmat.js"></script>
+
 
 
 // Load imagejs

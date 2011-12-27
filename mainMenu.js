@@ -9,7 +9,7 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 	
 	var listOfModules={
 		'distance to line':function(evt){imagejs.loadModule('mainMenu.js')},
-		'hello world':function(evt){imagejs.loadModule('helloWorld.js')},
+		'hello world':function(evt){imagejs.loadModule('http://imagejs.googlecode.com/git/helloWorld.js')},
 		'morphomarkers':function(evt){imagejs.loadModule('http://morphomarkers.imagejs.googlecode.com/git/morphomarkers.js')}		
 	}
 	
@@ -18,7 +18,7 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 			console.log('Load Module');
 			var msg=jmat.gId('msg'); // message div
 			msg.innerHTML='from select from <select><option>List</option><option>Morphomarkers</option><option>Morphomarkers</option><option>Morphomarkers</option><option>Distance to line</option></select> or from URL:<input type=text>';
-			msg.innerHTML='from select from <span id=listOfModules></span> or from URL:<input type=text>';
+			msg.innerHTML='from select from <span id=listOfModules></span> or from URL:<input type=text size=50 onkeyup="if(event.keyCode==13)(imagejs.loadModule(this.value))">';
 			jmat.gId('listOfModules').appendChild(imagejs.menu(listOfModules,'List'));
 		},
 		Save:function(){
