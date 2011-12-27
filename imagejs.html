@@ -1,10 +1,18 @@
 <html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://jmat.googlecode.com/git/jmat.js"></script>
+<script src="http://localhost:8888/jmat/jmat.js"></script>
+<script src="imagejs.js"></script>
+<link rel="stylesheet" type="text/css" href="imagejs.css">
+</head>
 <body>
-	<div id="msg">drag image to start </div>
+	<div id="menu"></div>
+	<div id="msg">drag png, jpeg or gif image to start </div>
+	<div id="wkspace">
 	<canvas id="cvBase" style="border:solid 1px">sorry, your browser does not support HTML5</canvas>
-	
-	<script src="http://jmat.googlecode.com/git/jmat.js"></script>
-	<script src="imagejs.js"></script>
+	<div id="foot"></div>
+	</div>	
 	<script>
 	// based on http://www.html5rocks.com/en/tutorials/file/dndfiles/
 	
@@ -21,7 +29,7 @@
 	}
 
 	// Setup the dnd listeners.
-	var dropZone = document.getElementById('cvBase');
+	var dropZone = document.getElementById('wkspace');
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
 	</script>
