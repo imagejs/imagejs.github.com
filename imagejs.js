@@ -22,7 +22,8 @@ readImage:function(f){ // read image file
 			cv.width=this.width;cv.height=this.height; //size canvas to the image
 			var ctx=cv.getContext('2d');
 			ctx.drawImage(this,0,0);
-			imagejs.dt0=jmat.imread(cv);
+			imagejs.data.dt0=jmat.imread(cv);
+			//imagejs.data.dt0=JSON.stringify(jmat.imread(cv)); //.slice(); // remeber that .slice() clones
 			jmat.gId('msg').textContent+='done';
 			imagejs.loadModule('mainMenu.js');
 		} // to make sure drawing only happens after loading
@@ -32,7 +33,7 @@ readImage:function(f){ // read image file
 },
 
 msg:function(x){ // passing a message to the message div, also copied to the console
-	$('#msg').html(x);
+	jmat.gId('msg').innerHTML=x;
 	console.log(x);
 },
 
@@ -75,6 +76,11 @@ modules:{
 	// You don't have to, but you could use this object, imagejs.modules[url]={}, if you wanted to.
 },
 
+data:{
+	// a good place to keep data that multiple modules may need
+	// for example, loading an image will automatically create imagejs.data.dt0 with the output of jmat.imread('wkspace')
+},
+
 floatDiv:{
 	create:function(){
 		var div = document.createElement('div');
@@ -112,5 +118,12 @@ floatDiv:{
 	
 }
 
+};
 
-}
+// startup procedure
+(function(){
+	// load module provided as a search term, if at all
+	var url = document.location.search;
+	if (url.length>1){imagejs.loadModule(url.slice(1))}
+})();
+

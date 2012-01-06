@@ -17,8 +17,7 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 		Load:function(){
 			console.log('Load Module');
 			var msg=jmat.gId('msg'); // message div
-			msg.innerHTML='from select from <select><option>List</option><option>Morphomarkers</option><option>Morphomarkers</option><option>Morphomarkers</option><option>Distance to line</option></select> or from URL:<input type=text>';
-			msg.innerHTML='from select from <span id=listOfModules></span> or from URL:<input type=text size=50 onkeyup="if(event.keyCode==13)(imagejs.loadModule(this.value))">';
+			msg.innerHTML='Load module from <span id=listOfModules></span> or from URL:<input type=text size=50 onkeyup="if(event.keyCode==13)(imagejs.loadModule(this.value))">';
 			jmat.gId('listOfModules').appendChild(imagejs.menu(listOfModules,'List'));
 		},
 		Save:function(){
