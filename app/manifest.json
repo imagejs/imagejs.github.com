@@ -1,0 +1,17 @@
+{
+  "name": "ImageJS",
+  "description": "like NIH imagej but using js",
+  "version": "1.5",
+  "app": {
+    "launch": {
+      "web_url": "http://imagejs.github.com"
+    }
+  },
+  "icons": {
+    "128": "imagejs_128.png"
+  },
+  "permissions": [
+    "unlimitedStorage",
+    "notifications"
+  ]
+}
