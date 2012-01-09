@@ -1,13 +1,13 @@
 <html>
 <head>
-<script src="http://jmat.googlecode.com/git/jmat.js"></script>
+<script src="jmat.googlecode.com/git/jmat.js"></script>
 <script src="imagejs.js"></script>
 <link rel="stylesheet" type="text/css" href="imagejs.css">
 </head>
-<body>
+<body onload="imagejs.start()">
 	<div id="menu"></div>
 	<div id="msg">drag png, jpeg or gif image to start </div>
-	<div id="wkspace">
+	<div id="work">
 	<canvas id="cvBase" style="border:solid 1px">sorry, your browser does not support HTML5</canvas>
 	<div id="foot"></div>
 	</div>	
@@ -27,7 +27,7 @@
 	}
 
 	// Setup the dnd listeners.
-	var dropZone = document.getElementById('wkspace');
+	var dropZone = document.getElementById('work');
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
 	</script>

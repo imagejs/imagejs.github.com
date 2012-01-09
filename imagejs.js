@@ -15,21 +15,39 @@ readImage:function(f){ // read image file
 		//canvas tutorial at http://www.html5canvastutorials.com/tutorials/html5-canvas-element/	
 		var im = new Image();
 		im.onload=function(){
-			var cv=document.createElement('canvas');
-			cv.id='cvBase';
-			var div = jmat.gId('wkspace');div.innerHTML=''; // workspace div
-			div.appendChild(cv);
-			cv.width=this.width;cv.height=this.height; //size canvas to the image
-			var ctx=cv.getContext('2d');
+			var cvBase=document.createElement('canvas');
+			cvBase.id='cvBase';
+			var div = jmat.gId('work');div.innerHTML=''; // workspace div
+			div.appendChild(cvBase);
+			cvBase.width=this.width;cvBase.height=this.height; //size canvas to the image
+			var ctx=cvBase.getContext('2d');
 			ctx.drawImage(this,0,0);
-			imagejs.data.dt0=jmat.imread(cv);
+			imagejs.data.dt0=jmat.imread(cvBase);
 			//imagejs.data.dt0=JSON.stringify(jmat.imread(cv)); //.slice(); // remeber that .slice() clones
 			jmat.gId('msg').textContent+='done';
 			imagejs.loadModule('mainMenu.js');
+			// create overlay canvas
+			var cvTop=document.createElement('canvas');
+			cvTop.id='cvTop';
+			cvTop.width=cvBase.width;
+			cvTop.height=cvBase.height;
+			cvTop.style.position='absolute';
+			cvTop.style.left=cvBase.offsetLeft;
+			//cvTop.style.top=cvBase.offsetTop;
+			jmat.gId('work').appendChild(cvTop);		
 		} // to make sure drawing only happens after loading
 		im.src=x.target.result; // the stringified image
 	};
 	reader.readAsDataURL(f);
+},
+
+keepTop:function(){//size and move cvTop to be on top of cvBase
+	var cvBase=jmat.gId('cvBase');
+	var cvTop=jmat.gId('cvTop');
+	cvTop.width=cvBase.width;
+	cvTop.height=cvBase.height;
+	cvTop.style.left=cvBase.offsetLeft;
+	cvTop.style.top=cvBase.offsetTop;
 },
 
 msg:function(x){ // passing a message to the message div, also copied to the console
@@ -78,52 +96,14 @@ modules:{
 
 data:{
 	// a good place to keep data that multiple modules may need
-	// for example, loading an image will automatically create imagejs.data.dt0 with the output of jmat.imread('wkspace')
+	// for example, loading an image will automatically create imagejs.data.dt0 with the output of jmat.imread('work')
 },
 
-floatDiv:{
-	create:function(){
-		var div = document.createElement('div');
-		div.id='mainMenu';
-		$(div).addClass("floatingDiv")
-		div.style.width=150;
-		//div.style.height=100;
-		div.style.border='1px solid red';
-		div.style.backgroundColor='white';
-		div.style.opacity=0.5;
-		div.style.position='absolute';
-		//div.style.dragable='true';
-		//div.style.top=50;
-		//div.style.left=20;
-		div.innerHTML='<table id="floatyTable"><tr ><td style="background-color:red">[o]</td><td>Main menu</td></tr><tr><td></td><td>4</td></tr></table>';
-		document.body.appendChild(div);
-		this.div=div; // anchor div here while it is moving
-		this.move();
-		//onmousemove=this.startMove;
-		//onclick=this.endMove;
-		return div;
-	},
-	move:function(ev){
-		onmousemove=function(ev){
-			//console.log(ev.offsetX,ev.offsetY);
-			imagejs.floatDiv.div.style.top=parseInt(ev.offsetY)+5;
-			imagejs.floatDiv.div.style.left=parseInt(ev.offsetX)-5;
-		}
-		onclick=function(ev){
-			console.log('end move');
-			onmousemove=null;
-			onclick=null;
-		}	
-	}
-	
-}
-
-};
-
-// startup procedure
-(function(){
+start:function(){ // things that should happen when the page loads
 	// load module provided as a search term, if at all
 	var url = document.location.search;
 	if (url.length>1){imagejs.loadModule(url.slice(1))}
-})();
+}
+
+};
 
