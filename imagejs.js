@@ -33,7 +33,7 @@ readImage:function(f){ // read image file
 			cvTop.height=cvBase.height;
 			cvTop.style.position='absolute';
 			cvTop.style.cursor='crosshair';
-			cvBase.style.cursor='crosshair';
+			//cvBase.style.cursor='crosshair';
 			cvTop.style.left=cvBase.offsetLeft;
 			//cvTop.style.top=cvBase.offsetTop;
 			jmat.gId('work').appendChild(cvTop);		
