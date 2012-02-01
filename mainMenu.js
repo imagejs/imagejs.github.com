@@ -19,6 +19,7 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 			var msg=jmat.gId('msg'); // message div
 			msg.innerHTML='Load module from <span id=listOfModules></span> or from URL:<input type=text size=50 onkeyup="if(event.keyCode==13)(imagejs.loadModule(this.value))">';
 			jmat.gId('listOfModules').appendChild(imagejs.menu(listOfModules,'List'));
+			cvTop.style.left=cvBase.offsetLeft;cvTop.style.top=cvBase.offsetTop; // make sure the two canvas are aligned
 		},
 		Save:function(){
 			console.log('Save Results');
