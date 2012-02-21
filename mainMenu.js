@@ -27,7 +27,7 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 	}
 	var name= 'Main Menu';
 	jmat.gId('menu').appendChild(imagejs.menu(menu,name)); // <-- this 
-	
+	cvTop.style.left=cvBase.offsetLeft;cvTop.style.top=cvBase.offsetTop; // make sure the two canvas are aligned
 	// --------------
 	
 	

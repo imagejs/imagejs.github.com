@@ -23,8 +23,20 @@ readImage:function(f){ // read image file
 			var ctx=cvBase.getContext('2d');
 			ctx.drawImage(this,0,0);
 			imagejs.data.dt0=jmat.imread(cvBase);
-			//imagejs.data.dt0=JSON.stringify(jmat.imread(cv)); //.slice(); // remeber that .slice() clones
+			// check that image size is ok
+			if(cvBase.width*cvBase.height>4000000){
+				jmat.gId('msg').innerHTML+='<span style="color:red">image too large, current version is limited to 4 MPixels</span>';
+				throw('image too large')
+			}
+			imagejs.data.dt0 = jmat.imhalve(imagejs.data.dt0,2000000); // limit set at 1MPixel
+			var s = jmat.size(imagejs.data.dt0);
+			if(s[0]!==cvBase.width){ // if image was resized
+				cvBase.height=s[0];cvBase.width=s[1]; //size canvas to the image
+				jmat.imwrite(cvBase,imagejs.data.dt0)
+			}
+			
 			jmat.gId('msg').textContent+='done';
+			// load mainMenu module
 			imagejs.loadModule('mainMenu.js');
 			// create overlay canvas
 			var cvTop=document.createElement('canvas');
