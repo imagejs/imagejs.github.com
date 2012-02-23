@@ -1,13 +1,20 @@
 <html>
 <head>
 <meta name="google-site-verification" content="772SnMSyIMzcGQJ_74cYZEQB2CZKswi0L0cvhWhV4cc" />
+<link href="http://localhost:8888/imagejs/jquery-ui-1.8.17.custom/css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css"/>
+<script src="http://localhost:8888/imagejs/jquery-ui-1.8.17.custom/js/jquery-1.7.1.min.js"></script>
+<script src="http://localhost:8888/imagejs/jquery-ui-1.8.17.custom/js/jquery-ui-1.8.17.custom.min.js"></script>
 <script src="http://localhost:8888/jmat/jmat.js"></script>
 <script src="imagejs.js"></script>
 <link rel="stylesheet" type="text/css" href="imagejs.css">
 </head>
 <body onload="imagejs.start()">
+	<p>
 	<div id="menu"></div>
+	</p>
+	<p>
 	<div id="msg">drag png, jpeg or gif image to start </div>
+	</p>
 	<div id="work">
 	<canvas id="cvBase" style="border:solid 1px">sorry, your browser does not support HTML5</canvas>
 	<div id="foot"></div>
@@ -31,6 +38,7 @@
 	var dropZone = document.getElementById('work');
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
+	dropZone.onclick=function(){console.log(this);}
 	</script>
 
 </body>
