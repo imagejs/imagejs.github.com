@@ -9,35 +9,40 @@
 <link rel="stylesheet" type="text/css" href="imagejs.css">
 </head>
 <body onload="imagejs.start()">
-	<p>
 	<div id="menu"></div>
-	</p>
-	<p>
 	<div id="msg">drag png, jpeg or gif image to start </div>
-	</p>
 	<div id="work">
-	<canvas id="cvBase" style="border:solid 1px">sorry, your browser does not support HTML5</canvas>
-	<div id="foot"></div>
+		<canvas id="cvBase" style="border:solid 1px">sorry, your browser does not support HTML5</canvas>
+		<div id="manualUPL">
+			<input type="file" id="work2" name="work2">
+		</div>
+		<div id="foot"></div>
 	</div>	
 	<script>
-	// based on http://www.html5rocks.com/en/tutorials/file/dndfiles/
+		// based on http://www.html5rocks.com/en/tutorials/file/dndfiles/
+		function handleFileSelect(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			imagejs.readImage(evt.dataTransfer.files);
+		}
 	
-	function handleFileSelect(evt) {
-		evt.stopPropagation();
-		evt.preventDefault();
-		imagejs.readImage(evt.dataTransfer.files);
-	}
-
-	function handleDragOver(evt) {
-		evt.stopPropagation();
-		evt.preventDefault();
-		evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-	}
-
-	// Setup the dnd listeners.
-	var dropZone = document.getElementById('work');
-	dropZone.addEventListener('dragover', handleDragOver, false);
-	dropZone.addEventListener('drop', handleFileSelect, false);
+		function manualFileSelect(evt) {
+			var files = evt.target.files;
+			imagejs.readImage(files);
+		}
+	
+		function handleDragOver(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+		}
+	
+		// Setup the dnd/manual listeners.
+		var dropZone = document.getElementById('work');
+		var manualSel = document.getElementById('work2');
+		dropZone.addEventListener('dragover', handleDragOver, false);
+		dropZone.addEventListener('drop', handleFileSelect, false);
+		manualSel.addEventListener('change', manualFileSelect, false);
 	</script>
 
 </body>
