@@ -8,9 +8,8 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 (function(){
 	
 	var listOfModules={
-		'distance to line':function(evt){imagejs.loadModule('mainMenu.js')},
 		'hello world':function(evt){imagejs.loadModule('http://imagejs.googlecode.com/git/helloWorld.js')},
-		'morphomarkers':function(evt){imagejs.loadModule('http://morphomarkers.imagejs.googlecode.com/git/morphomarkers.js')}		
+		'chromomarkers':function(evt){imagejs.loadModule('http://module.imagejs.googlecode.com/git/chromomarkers.js')}		
 	}
 	
 	var menu={
