@@ -66,14 +66,23 @@ msg:function(x){ // passing a message to the message div, also copied to the con
 	console.log(x);
 },
 
-loadModule:function(url){
+loadModule:function(url,cb){
 	if(!this.modules[url]){ // load only in not there already
 		this.modules[url]={}; // register loading from this url
-		jmat.load(url);
+		jmat.load(url,cb);
 		this.msg('loading '+url);
 	}
 	else{this.msg('module @ '+url+' already loaded')}
 	
+},
+
+loadModules:function(urls){
+	if (urls.length>1){
+		imagejs.loadModule(urls[0],function(){
+			imagejs.loadModules(urls.slice(1))
+			})
+		} // recursion
+	else {imagejs.loadModule(urls[0])}
 },
 
 menu:function(x,id){
@@ -113,7 +122,7 @@ data:{
 start:function(){ // things that should happen when the page loads
 	// load module provided as a search term, if at all
 	var url = document.location.search;
-	if (url.length>1){imagejs.loadModule(url.slice(1))}
+	if (url.length>1){imagejs.loadModules(url.slice(1).split('&'))}
 }
 
 };

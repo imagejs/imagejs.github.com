@@ -9,7 +9,7 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 	
 	var listOfModules={
 		'hello world':function(evt){imagejs.loadModule('http://imagejs.googlecode.com/git/helloWorld.js')},
-		'chromomarkers':function(evt){imagejs.loadModule('http://module.imagejs.googlecode.com/git/chromomarkers.js')}		
+		'chromomarkers':function(evt){imagejs.loadModule('http://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js')}		
 	}
 	
 	var menu={
