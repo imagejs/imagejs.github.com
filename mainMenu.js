@@ -10,7 +10,7 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 	var listOfModules={
 		'Hello world':function(evt){imagejs.loadModule('http://imagejs.googlecode.com/git/helloWorld.js')},
 		'Chromomarkers':function(evt){imagejs.loadModule('http://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js')},
-		'Count Shapes':function(evt){imagejs.loadModule('http://module.imagejs.googlecode.com/git/mathbiol.countshapes.js')}			
+		'Count Shapes':function(evt){imagejs.loadModule('http://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js&http://module.imagejs.googlecode.com/git/mathbiol.countshapes.js')}			
 	}
 	
 	var menu={
