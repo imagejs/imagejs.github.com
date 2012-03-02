@@ -10,6 +10,7 @@ imagejs={
 readImage:function(f){ // read image file
 	f=f.item(0); // assuming there is only one file
 	jmat.gId('msg').textContent='loading '+f.name+' ... ';
+	imagejs.data.fname=f.name;
 	reader = new FileReader();
 	reader.onload=function(x){ // loading image 
 		//canvas tutorial at http://www.html5canvastutorials.com/tutorials/html5-canvas-element/	
