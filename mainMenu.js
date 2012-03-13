@@ -5,14 +5,20 @@
 
 imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 
+function handleDownloadImage() {
+	document.getElementById('cvBase').getContext('2d').drawImage(document.getElementById('cvTop'),0,0); 
+    var downloadImage = imagejs.canvas2Image('cvBase'); //Get updated base canvas
+    document.getElementById('dButton').href = downloadImage.replace("image/png");
+}
+
 (function(){
-	
+
 	var listOfModules={
 		'Hello world':function(evt){imagejs.loadModule('http://imagejs.googlecode.com/git/helloWorld.js')},
 		'Chromomarkers':function(evt){imagejs.loadModule('http://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js')},
 		'Count Shapes':function(evt){imagejs.loadModules(['http://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js','http://module.imagejs.googlecode.com/git/mathbiol.countshapes.js'])}			
 	}
-	
+
 	var menu={
 		Load:function(){
 			console.log('Load Module');
@@ -25,11 +31,22 @@ imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 			console.log('Save Results');
 		}
 	}
+	
+	
+
 	var name= 'Main Menu';
 	jmat.gId('menu').appendChild(imagejs.menu(menu,name)); // <-- this 
 	cvTop.style.left=cvBase.offsetLeft;cvTop.style.top=cvBase.offsetTop; // make sure the two canvas are aligned
 	// --------------
 	
-	
+
+	var a = document.createElement('a');
+	document.body.appendChild(a);
+	a.id = "dButton";
+	a.href="";
+	a.download="samplefilename.png";
+	a.textContent="Download Image";
+	a.addEventListener('click', handleDownloadImage, false);
 	
 })()
+
