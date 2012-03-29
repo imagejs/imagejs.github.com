@@ -27,17 +27,17 @@ readImage:function(f){ // read image file
 			cvBase.width=this.width;cvBase.height=this.height; //size canvas to the image
 			var ctx=cvBase.getContext('2d');
 			ctx.drawImage(this,0,0);
-			imagejs.data.dt0=jmat.imread(cvBase);
+			imagejs.data.img=jmat.imread(cvBase);
 			// check that image size is ok
 			if(cvBase.width*cvBase.height>4000000){
 				jmat.gId('msg').innerHTML+='<span style="color:red">image too large, current version is limited to 4 MPixels</span>';
 				throw('image too large')
 			}
-			imagejs.data.dt0 = jmat.imhalve(imagejs.data.dt0,2000000); // limit set at 1MPixel
-			var s = jmat.size(imagejs.data.dt0);
+			imagejs.data.img = jmat.imhalve(imagejs.data.img,2000000); // limit set at 1MPixel
+			var s = jmat.size(imagejs.data.img);
 			if(s[0]!==cvBase.width){ // if image was resized
 				cvBase.height=s[0];cvBase.width=s[1]; //size canvas to the image
-				jmat.imwrite(cvBase,imagejs.data.dt0)
+				jmat.imwrite(cvBase,imagejs.data.img)
 			}
 			
 			jmat.gId('msg').textContent+='done';
@@ -121,7 +121,7 @@ modules:{
 
 data:{
 	// a good place to keep data that multiple modules may need
-	// for example, loading an image will automatically create imagejs.data.dt0 with the output of jmat.imread('work')
+	// for example, loading an image will automatically create imagejs.data.img with the output of jmat.imread('work')
 },
 
 start:function(){ // things that should happen when the page loads
