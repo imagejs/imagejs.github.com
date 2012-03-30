@@ -4,15 +4,23 @@
 // use instead imagejs.modules[yourModule].
 
 imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
-
 function handleDownloadImage() {
 	document.getElementById('cvBase').getContext('2d').drawImage(document.getElementById('cvTop'),0,0); 
     var downloadImage = imagejs.canvas2Image('cvBase'); //Get updated base canvas
     document.getElementById('dButton').href = downloadImage.replace("image/png");
 }
+//Downloading imagejs.data as a text file.
+function handleJSONDownload(){
+	var compressedText = jmat.compress(imagejs.data); 
+	var bb = new WebKitBlobBuilder(); 
+	bb.append(compressedText);
+	var b = bb.getBlob();
+	var oURL = (window.URL || window.webkitURL);
+	oURL = oURL.createObjectURL(b);
+	document.getElementById('jdButton').href = oURL;
+}
 
 (function(){
-
 	var listOfModules={
 		'Hello world':function(evt){imagejs.loadModule('http://imagejs.googlecode.com/git/helloWorld.js')},
 		'Chromomarkers':function(evt){imagejs.loadModule('http://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js')},
@@ -32,7 +40,6 @@ function handleDownloadImage() {
 		}
 	}
 	
-	
 
 	var name= 'Main Menu';
 	jmat.gId('menu').appendChild(imagejs.menu(menu,name)); // <-- this 
@@ -41,12 +48,22 @@ function handleDownloadImage() {
 	
 
 	var a = document.createElement('a');
-	document.body.appendChild(a);
+	document.body.appendChild(a); 
 	a.id = "dButton";
 	a.href="";
 	a.download="samplefilename.png";
 	a.textContent="Download Image";
 	a.addEventListener('click', handleDownloadImage, false);
+
+	document.body.appendChild(document.createElement('br'))
 	
+	var b = document.createElement('a');
+	document.body.appendChild(b);
+	b.id = "jdButton";
+	b.href="";
+	b.download="file.txt";
+	b.textContent="Download File";
+	b.addEventListener('click', handleJSONDownload, false);	
 })()
+
 
