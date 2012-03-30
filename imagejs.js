@@ -3,7 +3,6 @@ console.log('imagejs loaded');
 //jmat.gId('cvBase').style.border='solid 1px';
 //<script src="http://localhost:8888/jmat/jmat.js"></script>
 //<script src="http://jmat.googlecode.com/git/jmat.js"></script>
-
 // Load imagejs
 imagejs={
 canvas2Image:function(canvasid){
