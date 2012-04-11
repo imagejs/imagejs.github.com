@@ -4,6 +4,7 @@
 // use instead imagejs.modules[yourModule].
 
 imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
+
 function handleDownloadImage() {
     document.getElementById('cvBase').getContext('2d').drawImage(document.getElementById('cvTop'),0,0);
     var downloadImage = imagejs.canvas2Image('cvBase'); //Get updated base canvas
@@ -12,17 +13,31 @@ function handleDownloadImage() {
 
 function handleJSONDownload(){
     var jsonText = JSON.stringify(imagejs.data);
-    var compressedText = LZW.compress(jsonText); //.slice(0, 10000)
-    //document.getElementById('jdButton').href = "data:text/plain;charset=utf-8;" + compressedText
+    var compressedText = LZW.compress(jsonText); 
 
     var bb = new WebKitBlobBuilder();
     bb.append(compressedText);
-    var b = bb.getBlob('application/text');
+    var b = bb.getBlob('application/zip');
     var oURL = (window.URL || window.webkitURL);
     oURL = oURL.createObjectURL(b);
     document.getElementById('jdButton').href = oURL;
 }
 
+
+function handleJSONDownload2(){
+	var imageURI = imagejs.data.orig;
+	var seperatorString = "ZZZZZZZ"
+    var segText = JSON.stringify(imagejs.data.seg);
+	var compressedSegText = LZW.compress(segText);
+	var text = imageURI + seperatorString + compressedSegText;
+
+    var bb = new WebKitBlobBuilder();
+    bb.append(text);
+    var b = bb.getBlob('application/text');
+    var oURL = (window.URL || window.webkitURL);
+    oURL = oURL.createObjectURL(b);
+    document.getElementById('jdButton').href = oURL;
+}
  
 
 (function(){
@@ -68,7 +83,7 @@ function handleJSONDownload(){
     b.href="";
     b.download="file.txt";
     b.textContent="Download File";
-    b.addEventListener('click', handleJSONDownload, false);
+    b.addEventListener('click', handleJSONDownload2, false);
    
 })()
 
