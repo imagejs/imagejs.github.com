@@ -6,11 +6,18 @@ console.log('imagejs loaded');
 
 // Load imagejs
 imagejs={
-		canvas2Image:function(canvasid){
-            var canvasvariable = document.getElementById(canvasid);
-            return canvasvariable.toDataURL("image/png");
-        },
 
+canvas2Image:function(canvasid){
+	var canvasvariable = document.getElementById(canvasid);
+	return canvasvariable.toDataURL("image/png");
+},
+
+canvas2Blob:function(canvasid, callback){
+	var canvasvariable = document.getElementById(canvasid);
+	return canvasvariable.toBlob(function (blob) {
+		callback(blob);
+	});
+},
 
 readImage:function(f){ // read image file
 	f=f.item(0); // assuming there is only one file

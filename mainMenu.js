@@ -5,10 +5,12 @@
 
 imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 
-function handleDownloadImage() {
+function handleDownloadImage(ev) {
+    ev.preventDefault();
     document.getElementById('cvBase').getContext('2d').drawImage(document.getElementById('cvTop'),0,0);
-    var downloadImage = imagejs.canvas2Image('cvBase'); //Get updated base canvas
-    document.getElementById('dButton').href = downloadImage.replace("image/png");
+    imagejs.canvas2Blob('cvBase', function (blob) {
+        saveAs(blob, 'image.png');
+    }); //Get updated base canvas
 }
 
 function handleJSONDownload(){
@@ -71,7 +73,6 @@ function handleJSONDownload2(){
     document.body.appendChild(a);
     a.id = "dButton";
     a.href="";
-    a.download="samplefilename.png";
     a.textContent="Download Image";
     a.addEventListener('click', handleDownloadImage, false);
 
