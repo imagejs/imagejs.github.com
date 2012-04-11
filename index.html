@@ -1,49 +1,174 @@
 <html>
 <head>
-<meta name="google-site-verification" content="772SnMSyIMzcGQJ_74cYZEQB2CZKswi0L0cvhWhV4cc" />
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+<meta name="google-site-verification"
+    content="772SnMSyIMzcGQJ_74cYZEQB2CZKswi0L0cvhWhV4cc" />
+<link
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+    rel="stylesheet" type="text/css" />
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 <script src="http://jmat.googlecode.com/git/jmat.js"></script>
 <script src="imagejs.js"></script>
 <link rel="stylesheet" type="text/css" href="imagejs.css">
 </head>
 <body onload="imagejs.start()">
-	<div id="menu"></div>
-	<div id="msg">[<a href="https://github.com/imagejs/imagejs.github.com">source code</a>] [<a href="http://www.youtube.com/watch?v=qbKBGb4EchE">YouTube</a>]<br> To start, drag png, jpeg or gif image into the box, up to 4 Mpixels:</div>
-	<div id="work">
-		<canvas id="cvBase" style="border:solid 1px">sorry, your browser does not support HTML5</canvas>
-		<div id="manualUPL">
-			or <input type="file" id="work2" name="work2" value="Upload File">
-		</div>
-		<div id="foot"></div>
-	</div>	
-	<script>
-		// based on http://www.html5rocks.com/en/tutorials/file/dndfiles/
-		function handleFileSelect(evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
-			imagejs.readImage(evt.dataTransfer.files);
-		}
-	
-		function manualFileSelect(evt) {
-			var files = evt.target.files;
-			imagejs.readImage(files);
-		}
-	
-		function handleDragOver(evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
-			evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-		}
-	
-		// Setup the dnd/manual listeners.
-		var dropZone = document.getElementById('work');
-		var manualSel = document.getElementById('work2');
-		dropZone.addEventListener('dragover', handleDragOver, false);
-		dropZone.addEventListener('drop', handleFileSelect, false);
-		manualSel.addEventListener('change', manualFileSelect, false);
-	</script>
+    <div id="menu"></div>
+    <div id="msg">[<a href="https://github.com/imagejs/imagejs.github.com">source code</a>] [<a href="http://www.youtube.com/watch?v=qbKBGb4EchE">YouTube</a>]<br> To start, drag png, jpeg or gif image into the box, up to 4 Mpixels:</div>
+    <div id="work">
+        <canvas id="cvBase" style="border: solid 1px">sorry, your browser does not support HTML5</canvas>
+        <div id="manualUPL">
+            or <input type="file" id="work2" name="work2" value="Upload File">
+        </div>
+        <div id="foot"></div>
+    </div>
+    <br/>
+    Upload previously downloaded file
+    <br/>
+    <input type="file" value="Upload File">
+    <script>
+        // based on http://www.html5rocks.com/en/tutorials/file/dndfiles/
+        function handleFileSelect(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            imagejs.readImage(evt.dataTransfer.files);
+        }
+    
+        function manualFileSelect(evt) {
+            var files = evt.target.files;
+            imagejs.readImage(files);
+        }
+    
+        function handleDragOver(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+        }
+        function manualFileSelect(evt) {
+            var files = evt.target.files;
+            imagejs.readImage(files);
+        }
+
+        function handleJSONUpload(evt) {
+            var files = evt.target.files;
+            file = files[0];
+            var reader = new FileReader();
+            reader.onload = loaded;
+            reader.readAsText(file);
+        }
+
+        function loaded(evt) {
+            var compressedText = evt.target.result; //1,22,33,44,55
+            //Convert comma-separated text content to Array
+            var textArray = compressedText.split(',') //['1','22','33','44','55']  
+            //LZW algorithm's decompress function need compressed text as Int Array. Converting textArray to Int Array
+            //[1,22,33,44,55]
+            var intArray = [];
+            for ( var i = 0; i < textArray.length; i++) {
+                intArray[i] = parseInt(textArray[i])
+            }
+            var jsonText = LZW.decompress(intArray)
+            console.log('Decompressed Successfully')
+            //Create JSON Object from JSON Text //Reverse of JSON.Stringify
+            var jsonObj = eval('(' + jsonText + ')');  // jsonObj == imagejs.data      
+            //Resize Canvas
+            var s = jmat.size(jsonObj.img);
+            var cvBase = document.getElementById('cvBase')
+            cvBase.height = s[0];
+            cvBase.width = s[1];
+            //Write actual image(imagejs.data.img or jsonObj.img)
+            jmat.imwrite(cvBase, jsonObj.img)
+            //Write Highlighting stuff.(imagejs.data.seg or jsonObj.seg) Convert jsonObj.seg ?
+            //Convert jsonObj.seg to have RGB values.
+           
+             // jmat.imagebw(cvBase,jmat.edge(jsonObj.seg),[0,0,0,0],[255,255,0,255])
+             
+            var cvTop=document.createElement('canvas');
+            cvTop.id='cvTop';
+            cvTop.width=cvBase.width;
+            cvTop.height=cvBase.height;
+            cvTop.style.position='absolute';
+            cvTop.style.left=cvBase.offsetLeft;cvTop.style.top=cvBase.offsetTop;
+            jmat.imagebw(cvTop,jmat.edge(jsonObj.seg),[0,0,0,0],[255,255,0,255])
+           
+            //document.getElementById('cvBase').getContext('2d').drawImage(document.getElementById('cvTop'),0,0);
+            document.getElementById('cvBase').getContext('2d').drawImage(cvTop,0,0);       
+        }
+    
+        // Setup the dnd/manual listeners.
+        var dropZone = document.getElementById('work');
+        var manualSel = document.getElementById('work2');
+        dropZone.addEventListener('dragover', handleDragOver, false);
+        dropZone.addEventListener('drop', handleFileSelect, false);
+        manualSel.addEventListener('change', manualFileSelect, false);
+        addEventListener('change', handleJSONUpload, false);
+
+        // Source: http://rosettacode.org/wiki/LZW_compression#JavaScript
+        var LZW = {
+            compress : function(uncompressed) {
+                "use strict";
+                // Build the dictionary.
+                var i, dictionary = {}, c, wc, w = "", result = [], dictSize = 256;
+                for (i = 0; i < 256; i += 1) {
+                    dictionary[String.fromCharCode(i)] = i;
+                }
+
+                for (i = 0; i < uncompressed.length; i += 1) {
+                    c = uncompressed.charAt(i);
+                    wc = w + c;
+                    if (dictionary[wc]) {
+                        w = wc;
+                    } else {
+                        result.push(dictionary[w]);
+                        // Add wc to the dictionary.
+                        dictionary[wc] = dictSize++;
+                        w = String(c);
+                    }
+                }
+
+                // Output the code for w.
+                if (w !== "") {
+                    result.push(dictionary[w]);
+                }
+                return result;
+            },
+
+            decompress : function(compressed) {
+                "use strict";
+                // Build the dictionary.
+                var i, dictionary = [], w, result, k, entry = "", dictSize = 256;
+                for (i = 0; i < 256; i += 1) {
+                    dictionary[i] = String.fromCharCode(i);
+                }
+                console.log("Dictionary done.")
+
+                w = String.fromCharCode(compressed[0]);
+                result = w;
+                for (i = 1; i < compressed.length; i += 1) {
+                    //    console.log(i)
+                    k = compressed[i];
+                    if (dictionary[k]) {
+                        entry = dictionary[k];
+                    } else {
+                        if (k === dictSize) {
+                            entry = w + w.charAt(0);
+                        } else {
+                            return null;
+                        }
+                    }
+
+                    result += entry;
+
+                    // Add w+entry[0] to the dictionary.
+                    dictionary[dictSize++] = w + entry.charAt(0);
+
+                    w = entry;
+                }
+                return result;
+            }
+        };
+    </script>
 
 </body>
 </html>
