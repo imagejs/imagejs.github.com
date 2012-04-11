@@ -6,10 +6,11 @@ console.log('imagejs loaded');
 
 // Load imagejs
 imagejs={
-canvas2Image:function(canvasid){
-		    var canvasvariable = document.getElementById(canvasid);
-		    return canvasvariable.toDataURL("image/png");
-		},
+		canvas2Image:function(canvasid){
+            var canvasvariable = document.getElementById(canvasid);
+            return canvasvariable.toDataURL("image/png");
+        },
+
 
 readImage:function(f){ // read image file
 	f=f.item(0); // assuming there is only one file
@@ -28,6 +29,7 @@ readImage:function(f){ // read image file
 			var ctx=cvBase.getContext('2d');
 			ctx.drawImage(this,0,0);
 			imagejs.data.img=jmat.imread(cvBase);
+			
 			// check that image size is ok
 			if(cvBase.width*cvBase.height>4000000){
 				jmat.gId('msg').innerHTML+='<span style="color:red">image too large, current version is limited to 4 MPixels</span>';
@@ -53,6 +55,7 @@ readImage:function(f){ // read image file
 			jmat.gId('work').appendChild(cvTop);		
 		} // to make sure drawing only happens after loading
 		im.src=x.target.result; // the stringified image
+		imagejs.data.orig = x.target.result;
 	};
 	reader.readAsDataURL(f);
 },
