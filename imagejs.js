@@ -6,10 +6,14 @@ console.log('imagejs loaded');
 
 // Load imagejs
 imagejs={
-canvas2Image:function(canvasid){
-		    var canvasvariable = document.getElementById(canvasid);
-		    return canvasvariable.toDataURL("image/png");
-		},
+
+// Returns a blob representing the image contained in the canvas in the PNG format.
+canvas2Image:function(canvasid, callback){
+	var canvasvariable = document.getElementById(canvasid);
+	return canvasvariable.toBlob(function (blob) {
+		callback(blob);
+	});
+},
 
 readImage:function(f){ // read image file
 	f=f.item(0); // assuming there is only one file
