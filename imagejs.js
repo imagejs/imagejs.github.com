@@ -12,6 +12,7 @@ canvas2Image:function(canvasid){
 	return canvasvariable.toDataURL("image/png");
 },
 
+// Returns a blob representing the image contained in the canvas in the PNG format.
 canvas2Blob:function(canvasid, callback){
 	var canvasvariable = document.getElementById(canvasid);
 	return canvasvariable.toBlob(function (blob) {

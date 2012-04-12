@@ -5,12 +5,13 @@
 
 imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 
+// Merges both canvases and provides a way to save the image as a PNG file using the FileSaver API.
 function handleDownloadImage(ev) {
     ev.preventDefault();
     document.getElementById('cvBase').getContext('2d').drawImage(document.getElementById('cvTop'),0,0);
     imagejs.canvas2Blob('cvBase', function (blob) {
         saveAs(blob, 'image.png');
-    }); //Get updated base canvas
+    });
 }
 
 function handleJSONDownload(){
