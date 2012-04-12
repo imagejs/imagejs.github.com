@@ -5,6 +5,16 @@
 <script src="http://localhost:8888/imagejs/jquery-ui-1.8.17.custom/js/jquery-1.7.1.min.js"></script>
 <script src="http://localhost:8888/imagejs/jquery-ui-1.8.17.custom/js/jquery-ui-1.8.17.custom.min.js"></script>
 <script src="http://localhost:8888/jmat/jmat.js"></script>
+<!--
+    canvas-toblob.js is a polyfill for canvas.toBlob that is not implemented
+    in Chrome yet: http://code.google.com/p/chromium/issues/detail?id=83103
+-->
+<script src="libs/canvas-toblob/canvas-toblob.js"></script>
+<!--
+    filesaver.js is a polyfill for the FileSaver interface that is not implemented
+    in Chrome yet: http://code.google.com/p/chromium/issues/detail?id=65615
+-->
+<script src="libs/filesaver/filesaver.js"></script>
 <script src="imagejs.js"></script>
 <link rel="stylesheet" type="text/css" href="imagejs.css">
 </head>
