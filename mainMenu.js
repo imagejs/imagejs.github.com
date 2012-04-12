@@ -5,10 +5,13 @@
 
 imagejs.msg('mainMenu loaded'); // to notify via console and div#msg
 
-function handleDownloadImage() {
-	document.getElementById('cvBase').getContext('2d').drawImage(document.getElementById('cvTop'),0,0); 
-    var downloadImage = imagejs.canvas2Image('cvBase'); //Get updated base canvas
-    document.getElementById('dButton').href = downloadImage.replace("image/png");
+// Merges both canvases and provides a way to save the image as a PNG file using the FileSaver API.
+function handleDownloadImage(ev) {
+	ev.preventDefault();
+	document.getElementById('cvBase').getContext('2d').drawImage(document.getElementById('cvTop'),0,0);
+	imagejs.canvas2Image('cvBase', function (blob) {
+		saveAs(blob, 'image.png');
+	});
 }
 
 (function(){
@@ -44,7 +47,6 @@ function handleDownloadImage() {
 	document.body.appendChild(a);
 	a.id = "dButton";
 	a.href="";
-	a.download="samplefilename.png";
 	a.textContent="Download Image";
 	a.addEventListener('click', handleDownloadImage, false);
 	
