@@ -1,0 +1,133 @@
+<html>
+<head>
+<meta name="google-site-verification"
+    content="772SnMSyIMzcGQJ_74cYZEQB2CZKswi0L0cvhWhV4cc" />
+<link
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+    rel="stylesheet" type="text/css" />
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+<script src="http://jmat.googlecode.com/git/jmat.js"></script>
+<!--
+    canvas-toblob.js is a polyfill for canvas.toBlob that is not implemented
+    in Chrome yet: http://code.google.com/p/chromium/issues/detail?id=83103
+-->
+<script src="libs/canvas-toblob/canvas-toblob.js"></script>
+<!--
+    filesaver.js is a polyfill for the FileSaver interface that is not implemented
+    in Chrome yet: http://code.google.com/p/chromium/issues/detail?id=65615
+-->
+<script src="libs/filesaver/filesaver.js"></script>
+<script src="imagejs.js"></script>
+<link rel="stylesheet" type="text/css" href="imagejs.css">
+</head>
+<body onload="imagejs.start()">
+    <div id="menu"></div>
+    <div id="msg">drag png, jpeg or gif image in the box to start:</div>
+   
+    <div id="work" onmousemove="cnvs_getCoordinates(event)" onmouseout="cnvs_clearCoordinates()">
+        <canvas id="cvBase" style="border: solid 1px">sorry, your browser does not support HTML5</canvas>
+        
+        <div id="manualUPL">
+            or <input type="file" id="work2" name="work2" value="Upload File">
+        </div>
+        <div id="foot"></div>
+    </div>
+    <br/>
+    Upload previously downloaded file
+    <br/>
+    <input type="file" value="Upload File">
+    
+ <div id="xycoordinates"></div>
+    <script>
+        // based on http://www.html5rocks.com/en/tutorials/file/dndfiles/
+        function handleFileSelect(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            imagejs.readImage(evt.dataTransfer.files);
+        }
+
+        function manualFileSelect(evt) {
+            var files = evt.target.files;
+            imagejs.readImage(files);
+        }
+
+        function handleDragOver(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+        }
+        function manualFileSelect(evt) {
+            var files = evt.target.files;
+            imagejs.readImage(files);
+        }
+
+        function handleJSONUpload(evt) {
+            var files = evt.target.files;
+            if(files){
+             file = files[0];
+            var reader = new FileReader();
+            reader.onload = loaded;
+            reader.readAsText(file);
+            }
+        }
+        
+        function loaded(evt) {
+            var text = evt.target.result;
+            var seperator = text.indexOf('ZZZZZZZ'); 
+            var imageText = text.substring(0, seperator);
+            var segText = text.substring(seperator + 7);
+            var textArray = segText.split(',');
+            var intArray = [];
+            for ( var i = 0; i < textArray.length; i++) {
+                intArray[i] = parseInt(textArray[i])
+            }
+            var decompressedSegText = jmat.decompress(intArray);
+            var im = new Image();
+            im.onload=function() {
+                //Write image to base Canvas
+                var cvBase=document.getElementById('cvBase');
+                cvBase.width=this.width;cvBase.height=this.height; //size canvas to the image
+                var ctx=cvBase.getContext('2d');
+                ctx.drawImage(this,0,0);
+                imagejs.data.x=jmat.imread(cvBase);
+                imagejs.data.x = jmat.imhalve(imagejs.data.x,2000000)
+                var s = jmat.size(imagejs.data.x);
+                if(s[0]!==cvBase.width){ // if image was resized
+                    cvBase.height=s[0];cvBase.width=s[1]; //size canvas to the image
+                    jmat.imwrite(cvBase,imagejs.data.x)
+                }
+                
+                //Creat a canvas with segmentation data, and write that canvas to base canvas
+                var jsonObj = eval('({ seg: ' + decompressedSegText + '})'); 
+                var cvTop=document.createElement('canvas');
+                cvTop.id='cvTop';
+                cvTop.width=cvBase.width;
+                cvTop.height=cvBase.height;
+                cvTop.style.position='absolute';
+                cvTop.style.left=cvBase.offsetLeft;cvTop.style.top=cvBase.offsetTop;
+                jmat.imagebw(cvTop,jmat.edge(jsonObj.seg),[0,0,0,0],[255,255,0,255])
+                ctx.drawImage(cvTop,0,0);   
+            } 
+            im.src=imageText; 
+            
+         }
+        
+       
+        // Setup the dnd/manual listeners.
+        var dropZone = document.getElementById('work');
+        var manualSel = document.getElementById('work2');
+        dropZone.addEventListener('dragover', handleDragOver, false);
+        dropZone.addEventListener('drop', handleFileSelect, false);
+        manualSel.addEventListener('change', manualFileSelect, false);
+        addEventListener('change', handleJSONUpload, false);
+
+
+        function cnvs_getCoordinates(e){x=e.clientX-e.target.offsetLeft+window.pageXOffset;;y=e.clientY-e.target.offsetTop+window.pageYOffset;document.getElementById("xycoordinates").innerHTML="Coordinates: (" + x + "," + y + ")";}
+        function cnvs_clearCoordinates(){document.getElementById("xycoordinates").innerHTML="";}
+    </script>
+
+</body>
+</html>
