@@ -78,11 +78,10 @@ msg:function(x){ // passing a message to the message div, also copied to the con
 loadModule:function(url,cb){
 	if(!this.modules[url]){ // load only in not there already
 		this.modules[url]={}; // register loading from this url
-		jmat.load(url,cb);
 		this.msg('loading '+url);
 	}
 	else{this.msg('module @ '+url+' already loaded')}
-	
+	jmat.load(url,cb);
 },
 
 loadModules:function(urls){
