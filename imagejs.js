@@ -73,6 +73,7 @@ keepTop:function(){//size and move cvTop to be on top of cvBase
 msg:function(x){ // passing a message to the message div, also copied to the console
 	jmat.gId('msg').innerHTML=x;
 	console.log(x);
+	if($('#cvTop').length>0){cvTop.style.left=cvBase.offsetLeft;cvTop.style.top=cvBase.offsetTop};// make sure image stays aligned
 },
 
 loadModule:function(url,cb){
