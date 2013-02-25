@@ -170,5 +170,5 @@ wApps.manifest.authors.push(
 
 // temp
 
-$('#wBrand').attr('src','http://localhost:8888/imagejs/wapps/imagejs.png').width(50).height(20)
+$('#wBrand').attr('src','http://localhost:8888/imagejs/wapps/imagejs.png').width(60).height(20);
 
