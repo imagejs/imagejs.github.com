@@ -4,7 +4,7 @@
 
 // 1) BRANDING - the icon and link in the upper left corner
 wApps.manifest.brand={
-    pic:'https://raw.github.com/imagejs/imagejs.github.com/master/app/imagejs_128.png',
+    pic:'https://raw.github.com/imagejs/imagejs.github.com/master/wapps/imagejs.png',
     url:'https://github.com/imagejs/imagejs.github.com/tree/master/wapps'
 };
 
@@ -167,4 +167,8 @@ wApps.manifest.authors.push(
     "url":"http://someUrl.com"
     }
 );
+
+// temp
+
+$('#wBrand').attr('src','http://localhost:8888/imagejs/wapps/imagejs.png').width(50).height(20)
 
