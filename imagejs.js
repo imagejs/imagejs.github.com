@@ -77,6 +77,9 @@ msg:function(x){ // passing a message to the message div, also copied to the con
 },
 
 loadModule:function(url,cb){
+	if(url=="http://165.225.128.64/?doc=UID5716226333752275"){
+		url="https://imagejs.googlecode.com/git/withData.js"; // for teh sake of bit.ly/withData
+	};
 	if(!this.modules[url]){ // load only in not there already
 		this.modules[url]={}; // register loading from this url
 		this.msg('loading '+url);
