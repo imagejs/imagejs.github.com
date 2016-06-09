@@ -20,8 +20,8 @@ readImage:function(f){ // read image file
 	jmat.gId('msg').textContent='loading '+f.name+' ... ';
 	imagejs.data.fname=f.name;
 	reader = new FileReader();
-	reader.onload=function(x){ // loading image 
-		//canvas tutorial at http://www.html5canvastutorials.com/tutorials/html5-canvas-element/	
+	reader.onload=function(x){ // loading image
+		//canvas tutorial at http://www.html5canvastutorials.com/tutorials/html5-canvas-element/
 		var im = new Image();
 		im.onload=function(){
 			var cvBase=document.createElement('canvas');
@@ -43,7 +43,7 @@ readImage:function(f){ // read image file
 				cvBase.height=s[0];cvBase.width=s[1]; //size canvas to the image
 				jmat.imwrite(cvBase,imagejs.data.img)
 			}
-			
+
 			jmat.gId('msg').textContent+='done';
 			// load mainMenu module
 			imagejs.loadModule('mainMenu.js');
@@ -54,7 +54,7 @@ readImage:function(f){ // read image file
 			cvTop.height=cvBase.height;
 			cvTop.style.position='absolute';
 			cvTop.style.left=cvBase.offsetLeft;cvTop.style.top=cvBase.offsetTop;
-			jmat.gId('work').appendChild(cvTop);		
+			jmat.gId('work').appendChild(cvTop);
 		} // to make sure drawing only happens after loading
 		im.src=x.target.result; // the stringified image
 	};
@@ -78,7 +78,7 @@ msg:function(x){ // passing a message to the message div, also copied to the con
 
 loadModule:function(url,cb){
 	if(url=="http://165.225.128.64/?doc=UID5716226333752275"){
-		url="https://imagejs.googlecode.com/git/withData.js"; // for teh sake of bit.ly/withData
+		url="http://imagejs.org/withData.js"; // for teh sake of bit.ly/withData
 	};
 	if(!this.modules[url]){ // load only in not there already
 		this.modules[url]={}; // register loading from this url
@@ -138,4 +138,3 @@ start:function(){ // things that should happen when the page loads
 }
 
 };
-

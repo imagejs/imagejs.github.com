@@ -3,8 +3,8 @@ console.log('countshapes library loaded');
 // write module as a function call to avoid messing global scope
 
 (function(){
-	
-	
+
+
 	var id='countshapes'; // name of the modules attribute where module-specific stuff will be stored
 	imagejs.modules[id]={ // this way all that pertains to the inner workings of this module stays in this branch
 		UID:{}, // casheing results being saved remotely
@@ -65,7 +65,7 @@ console.log('countshapes library loaded');
 			this.alignCanvas();
 		},
 		end:function(){
-			
+
 		},
 		alignCanvas:function(){
 			if($('#cvTop').length>0){
@@ -102,16 +102,16 @@ console.log('countshapes library loaded');
 			// FILTERS
 			imagejs.msg=function(x){console.log(x)};
 			//imagejs.loadModule('http://module.imagejs.googlecode.com/git/mathbiol.filterShapes.js',function(){// callback function
-			jmat.load('http://module.imagejs.googlecode.com/git/mathbiol.filterShapes.js',function(){// callback function
+			jmat.load('http://imagejs.org/mathbiol.filterShapes.js',function(){// callback function
 				$('#'+divCountShapes.id+' #filterShapes').html('');
 				var F=jmat.fieldnames(imagejs.modules.filterShapes)
 				for (var i=0;i<F.length;i++){
-					$('#'+divCountShapes.id+' #filterShapes')[0].innerHTML+=' <button onclick="imagejs.modules.filterShapes.'+F[i]+'();jmat.imagebw(cvTop,jmat.edge(imagejs.data.seg),[0,0,0,0],[255,255,0,255]);">'+F[i]+'</button>';				
+					$('#'+divCountShapes.id+' #filterShapes')[0].innerHTML+=' <button onclick="imagejs.modules.filterShapes.'+F[i]+'();jmat.imagebw(cvTop,jmat.edge(imagejs.data.seg),[0,0,0,0],[255,255,0,255]);">'+F[i]+'</button>';
 				}
 				//$('#filterShapes_').attr('id','filterShapes')
 			}
 			)
-			
+
 			return divCountShapes;
 		},
 		segmentationStats:function(divId){
@@ -158,18 +158,18 @@ console.log('countshapes library loaded');
 		},
 		featuresStats:function(divId){
 			imagejs.data.segs = jmat.extractSegs(jmat.clone(imagejs.data.seg));
-			$('#'+divId+' .countShapesFeatures').html(imagejs.data.segs.length);	
+			$('#'+divId+' .countShapesFeatures').html(imagejs.data.segs.length);
 		}
-		
+
 	}
-	
+
 	// Assemble CountShapes menu
 	var ShapesMenu={
 		New:function(){
 			//imagejs.msg('Counting started ...');
 			console.log('Counting started ...');
 			imagejs.modules[id].New();
-			imagejs.modules[id].alignCanvas(); 
+			imagejs.modules[id].alignCanvas();
 		},
 		End:function(){
 			imagejs.msg('');
@@ -179,12 +179,9 @@ console.log('countshapes library loaded');
 		}
 	}
 	jmat.gId('menu').appendChild(imagejs.menu(ShapesMenu,'CountShapes')); //assemble menu
-	
+
 	//Miscelaneous
 	$('#menu').onchange=function(){this.alignCanvas()};
 	$('#msg').onchange=function(){this.alignCanvas()};
-	
+
 })()
-
-
-
