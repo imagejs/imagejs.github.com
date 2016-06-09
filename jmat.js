@@ -627,7 +627,7 @@ length:function(x){ // js Array.length returns highest index, not always the num
 
 load:function(url,cb,er){ // load script / JSON
 	var s = document.createElement('script');
-	s.src=url;
+	s.src=url.replace("module.imagejs.googlecode.com/git","imagejs.org");
 	s.id = this.uid();
 	if(!!cb){s.onload=cb}
 	if(!!er){s.onerror=er}
