@@ -134,7 +134,12 @@ data:{
 start:function(){ // things that should happen when the page loads
 	// load module provided as a search term, if at all
 	var url = document.location.search;
-	if (url.length>1){imagejs.loadModules(url.slice(1).split('&'))}
+	if (url.length>1){
+		if(url=="?http://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js&http://module.imagejs.googlecode.com/git/mathbiol.countshapes.js&http://165.225.128.64/?doc=UID5716226333752275&http://module.imagejs.googlecode.com/git/mathbiol.showdata.js"){
+			url="?http://imagejs.org/mathbiol.chromomarkers.js&http://imagejs.org/mathbiol.countshapes.js&http://imagejs.org/withData.js&http://imagejs.org/mathbiol.showdata.js"
+		}
+		imagejs.loadModules(url.slice(1).split('&'))
+	}
 }
 
 };
