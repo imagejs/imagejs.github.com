@@ -1,0 +1,54 @@
+<html>
+<body>
+
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+<br><g:plusone annotation="inline"></g:plusone> <a href="http://www.youtube.com/watch#!v=G2OAgInHD7E"><img src="http://s.ytimg.com/yt/img/creators_corner/YouTube/youtube_32x32.png">(tutorial) </a> <<a href="http://code.google.com/p/imagejs/source/list?repo=shortdistance"> source code </a>>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f0f4e0077bf28bd"></script>
+<hr>
+Calculation of shortest distances between <br>
+<textarea id=x>
+1	2
+3	4</textarea> and <textarea id=y>
+1	2
+3	5
+4	4</textarea> <button onClick="shortestDistance()"> = </button> <textarea id=z></textarea>
+
+<script>
+	//id = function(x){return document.getElementById(x)};
+	x.style.height=y.style.height=z.style.height=100;
+	shortestDistance=function(){
+		var xx=parseCoordinates(x),yy=parseCoordinates(y); // numerical coordinates
+		// calculate Euclidean distance
+		var zz = xx.map(function(xi){return yy.map(function(yj){return [xi,yj]})}); // cross-tabulation of coordinates
+		var dd = zz.map(function(xy){return xy.map(function(xyi){return Math.pow(Math.pow(xyi[0][0]-xyi[1][0],2)+Math.pow(xyi[0][1]-xyi[1][1],2),1/2)})}); // Euclidean distances
+		var d = dd.map(function(di){return di.reduce(function(a,b){if(a<=b){return a}else{return b}})}); // shortest distance
+		// parse distances into z's text area
+		var ztxt=d[0]+'\n';for(var i=1;i<d.length-1;i++){ztxt+=d[i]+'\n'};ztxt+=d[d.length-1];z.value=ztxt;
+	}
+	parseCoordinates=function(xy){
+		return xy.value.split('\n').map(function(a){return a.replace(/[^0-9.e+-]+/g,'\t').split('\t').map(function(b){return (JSON.parse(b))})});
+	}
+	// Facebook
+	
+	
+</script>
+<script>
+(function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</body>
+</html>
+
+
+
+
