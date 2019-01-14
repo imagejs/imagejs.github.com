@@ -16,7 +16,15 @@ canvas2Image:function(canvasid, callback){
 },
 
 readImage:function(f){ // read image file
-	f=f.item(0); // assuming there is only one file
+	let obj = f.item;
+	if (typeof obj !== 'undefined' && typeof obj === 'function') {
+		// safe to use the function
+		f = f.item(0);
+	}
+	else {
+		// default to f
+	}
+	console.log('hello from imagejs. file is', f);
 	jmat.gId('msg').textContent='loading '+f.name+' ... ';
 	imagejs.data.fname=f.name;
 	reader = new FileReader();
