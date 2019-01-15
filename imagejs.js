@@ -101,7 +101,15 @@ menu:function(x,id){
 	// process a menu structure
 	var f = jmat.fieldnames(x);
 	if(!jmat.gId('menu '+id)){var sel = jmat.cEl('select','menu '+id)} // create if it doesn't exist
-	else{jmat.gId('menu '+id)=jmat.gId('menu '+id).splice(0,0)} // else clear SELECT options
+	else{
+		//jmat.gId('menu '+id)=jmat.gId('menu '+id).splice(0,0)
+		// else clear SELECT options
+		var sel = jmat.gId('menu ' + id);
+		var i;
+		for (i = sel.options.length - 1; i >= 0; i--) {
+			sel.remove(i);
+		}
+	} 
 	//jmat.gId('menu').appendChild(sel);
 	var opt = jmat.cEl('option','option '+id);opt.textContent=id; // menu name at the top
 	sel.appendChild(opt);
