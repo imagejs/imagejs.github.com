@@ -102,7 +102,7 @@ console.log('countshapes library loaded');
 			// FILTERS
 			imagejs.msg=function(x){console.log(x)};
 			//imagejs.loadModule('http://module.imagejs.googlecode.com/git/mathbiol.filterShapes.js',function(){// callback function
-			jmat.load('http://imagejs.org/mathbiol.filterShapes.js',function(){// callback function
+			jmat.load('https://imagejs.github.io/mathbiol.filterShapes.js',function(){// callback function
 				$('#'+divCountShapes.id+' #filterShapes').html('');
 				var F=jmat.fieldnames(imagejs.modules.filterShapes)
 				for (var i=0;i<F.length;i++){
