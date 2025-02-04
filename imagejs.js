@@ -1,8 +1,8 @@
 console.log('imagejs loaded');
 // prepare canvas
 //jmat.gId('cvBase').style.border='solid 1px';
-//<script src="http://localhost:8888/jmat/jmat.js"></script>
-//<script src="http://jmat.googlecode.com/git/jmat.js"></script>
+//<script src="https://localhost:8888/jmat/jmat.js"></script>
+//<script src="https://jmat.googlecode.com/git/jmat.js"></script>
 
 // Load imagejs
 imagejs={
@@ -21,7 +21,7 @@ readImage:function(f){ // read image file
 	imagejs.data.fname=f.name;
 	reader = new FileReader();
 	reader.onload=function(x){ // loading image
-		//canvas tutorial at http://www.html5canvastutorials.com/tutorials/html5-canvas-element/
+		//canvas tutorial at https://www.html5canvastutorials.com/tutorials/html5-canvas-element/
 		var im = new Image();
 		im.onload=function(){
 			var cvBase=document.createElement('canvas');
@@ -77,8 +77,8 @@ msg:function(x){ // passing a message to the message div, also copied to the con
 },
 
 loadModule:function(url,cb){
-	if(url=="http://165.225.128.64/?doc=UID5716226333752275"){
-		url="http://imagejs.org/withData.js"; // for teh sake of bit.ly/withData
+	if(url=="https://165.225.128.64/?doc=UID5716226333752275"){
+		url="https://imagejs.org/withData.js"; // for teh sake of bit.ly/withData
 	};
 	if(!this.modules[url]){ // load only in not there already
 		this.modules[url]={}; // register loading from this url
@@ -135,8 +135,8 @@ start:function(){ // things that should happen when the page loads
 	// load module provided as a search term, if at all
 	var url = document.location.search;
 	if (url.length>1){
-		if(url=="?http://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js&http://module.imagejs.googlecode.com/git/mathbiol.countshapes.js&http://165.225.128.64/?doc=UID5716226333752275&http://module.imagejs.googlecode.com/git/mathbiol.showdata.js"){
-			url="?http://imagejs.org/mathbiol.chromomarkers.js&http://imagejs.org/mathbiol.countshapes.js&http://imagejs.org/withData.js&http://imagejs.org/mathbiol.showdata.js"
+		if(url=="?https://module.imagejs.googlecode.com/git/mathbiol.chromomarkers.js&https://module.imagejs.googlecode.com/git/mathbiol.countshapes.js&https://165.225.128.64/?doc=UID5716226333752275&https://module.imagejs.googlecode.com/git/mathbiol.showdata.js"){
+			url="?https://imagejs.org/mathbiol.chromomarkers.js&https://imagejs.org/mathbiol.countshapes.js&https://imagejs.org/withData.js&https://imagejs.org/mathbiol.showdata.js"
 		}
 		imagejs.loadModules(url.slice(1).split('&'))
 	}
