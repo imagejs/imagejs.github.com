@@ -5,18 +5,18 @@
     Use Google Chrome Frame to render in IE if available.
 -->
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 <script src="jmat.js"></script>
 <!--
     canvas-toblob.js is a polyfill for canvas.toBlob that is not implemented
-    in Chrome yet: http://code.google.com/p/chromium/issues/detail?id=83103
+    in Chrome yet: https://code.google.com/p/chromium/issues/detail?id=83103
 -->
 <script src="libs/canvas-toblob/canvas-toblob.js"></script>
 <!--
     filesaver.js is a polyfill for the FileSaver interface that is not implemented
-    in Chrome yet: http://code.google.com/p/chromium/issues/detail?id=65615
+    in Chrome yet: https://code.google.com/p/chromium/issues/detail?id=65615
 -->
 <script src="libs/filesaver/filesaver.js"></script>
 <script src="imagejs.js"></script>
@@ -24,7 +24,7 @@
 </head>
 <body onload="imagejs.start()">
 	<div id="menu"></div>
-	<div id="msg">[<a href="https://github.com/imagejs/imagejs.github.com">Code</a>] [<a href="http://www.youtube.com/watch?v=qbKBGb4EchE">YouTube#1</a>] [<a href="http://www.youtube.com/watch?v=NCPNgRxWWDQ">YouTube#2</a>] [<a href="https://www.ncbi.nlm.nih.gov/pubmed/22934238" target="_blank">J Pathology Informatics</a>] <br> To start, drag png, jpeg or gif image into the box, up to 4 Mpixels:</div>
+	<div id="msg">[<a href="https://github.com/imagejs/imagejs.github.com">Code</a>] [<a href="https://www.youtube.com/watch?v=qbKBGb4EchE">YouTube#1</a>] [<a href="https://www.youtube.com/watch?v=NCPNgRxWWDQ">YouTube#2</a>] [<a href="https://www.ncbi.nlm.nih.gov/pubmed/22934238" target="_blank">J Pathology Informatics</a>] <br> To start, drag png, jpeg or gif image into the box, up to 4 Mpixels:</div>
 	<div id="work">
 		<canvas id="cvBase" style="border:solid 1px">sorry, your browser does not support HTML5</canvas>
 		<div id="manualUPL">
@@ -33,7 +33,7 @@
 		<div id="foot"></div>
 	</div>	
 	<script>
-		// based on http://www.html5rocks.com/en/tutorials/file/dndfiles/
+		// based on https://www.html5rocks.com/en/tutorials/file/dndfiles/
 		function handleFileSelect(evt) {
 			evt.stopPropagation();
 			evt.preventDefault();
