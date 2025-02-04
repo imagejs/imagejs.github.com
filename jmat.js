@@ -121,7 +121,7 @@ colon:function(x){// equivalent to x(:)
 	return y;
 },
 
-compress: function (uncompressed) { // Source: http://rosettacode.org/wiki/LZW_compression#JavaScript
+compress: function (uncompressed) { // Source: https://rosettacode.org/wiki/LZW_compression#JavaScript
         uncompressed = this.stringify(uncompressed); // this is new - such that we are sompressing JS objects, not strings
         // Build the dictionary.
         var i,
@@ -707,7 +707,7 @@ require:function(lib,fun){ // jmat's version of requirejs
 },
 
 loadD3:function(callback){ // loads d3.js library
-	//jmat.load('http://mbostock.github.com/d3/d3.v2.js',callback);
+	//jmat.load('https://mbostock.github.com/d3/d3.v2.js',callback);
 	jmat.load('d3.v2.min.js',callback);
 },
 
@@ -750,7 +750,7 @@ loadVar:function(V,cb,er,cbId){ // check that an external library is loaded, V i
 					// add css to head
 					lk = document.createElement('link');
 					lk.rel='stylesheet';
-					lk.href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/smoothness/jquery-ui.css';
+					lk.href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/smoothness/jquery-ui.css';
 					document.head.appendChild(lk);
 				}
 				break;
@@ -759,16 +759,16 @@ loadVar:function(V,cb,er,cbId){ // check that an external library is loaded, V i
 			case 'google':
 				url='https://www.google.com/jsapi';break;
 			case 'minerva':
-				url='http://minervajs.org/api';break;
+				url='https://minervajs.org/api';break;
 			case 'usm':
 				url='https://raw.github.com/usm/usm.github.com/master/usm.js';break;
 			case 'crossfilter':
 				jmat.loadVar('d3'); // dependency
-				url='http://square.github.com/crossfilter/crossfilter.v1.min.js';break;
+				url='https://square.github.com/crossfilter/crossfilter.v1.min.js';break;
 			case 'S3QLtranslator':
-				url='http://js.s3db.googlecode.com/hg/translate/s3ql_translator.js';break;
+				url='https://js.s3db.googlecode.com/hg/translate/s3ql_translator.js';break;
 			case 'PUBNUB':
-					url='http://cdn.pubnub.com/pubnub-3.3.min.js';break;
+					url='https://cdn.pubnub.com/pubnub-3.3.min.js';break;
 			case 'cBio':
 					url='https://dl.dropbox.com/s/x7yvewsh7xs1xtu/cBio.js?dl=1';break; // dev link
 			default :
@@ -1742,6 +1742,6 @@ zeros:function(){
 	return jmat.dimfun(function(){return 0},arguments)
 },
 
-webrwUrl:'https://webrw.herokuapp.com',//http://165.225.128.64',
+webrwUrl:'https://webrw.herokuapp.com',//https://165.225.128.64',
 
 }
